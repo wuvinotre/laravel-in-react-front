@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./styles.css";
+import { UiNumber } from "../../../components/UiNumber";
 
 import { Link } from "react-router-dom";
 
@@ -23,27 +25,35 @@ export const ShowProducts = () => {
   };
 
   return (
-    <div>
-      <div>
-        <Link to="/create">Create</Link>
-      </div>
+    <div className="App">
+      <Link to="/create" className="Link">
+        <button>Create</button>
+      </Link>
       <table>
+        <div></div>
         <thead>
           <tr>
             <th>Description</th>
             <th>Price</th>
             <th>Stock</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {products.map((products) => (
             <tr key={products.id}>
               <td>{products.description}</td>
-              <td>{products.price}</td>
+              <td>
+                R$<UiNumber format="0,0.00">{products.price}</UiNumber>
+              </td>
+
               <td>{products.stock}</td>
 
               <td>
-                <Link to={`/edit/${products.id}`}>Edit</Link>
+                <Link to={`/edit/${products.id}`} className="Link">
+                  <button>Edit</button>
+                </Link>
+
                 <button onClick={() => deleteProduct(products.id)}>
                   Delete
                 </button>
